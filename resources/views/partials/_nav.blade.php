@@ -15,6 +15,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a></li>
+        <li><a href="{{ url(url('posts/create')) }}">Post  </a></li>
         <li><a href="{{ url('about') }}">About  </a></li>
         <li><a href="{{ url('contact') }}">Contact  </a></li>
         
