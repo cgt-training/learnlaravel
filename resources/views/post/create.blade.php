@@ -2,7 +2,12 @@
 
 @extends('layouts.pages')
 
-@section('title', 'Home')
+@section('title', 'Create Post')
+@section('active2', 'active')
+
+@section('style')
+	{!! Html::style('css/parsley.css') !!}
+@endsection
 
 @section('content')
 <div class="container">
@@ -13,13 +18,12 @@
 				  <!-- text input field -->
 				 
 				  {{ Form::label('posttitle','Post Title',array('id'=>'','class'=>'control-label')) }}
-				  {{ Form::text('title','',array('id'=>'','class'=>'form-control')) }}
-				  
+				  {{ Form::text('title','',array('id'=>'','class'=>'form-control', 'required' => '', 'maxlength' => '25')) }}
 				  
 				  <!-- textarea field -->
 				  
 				  {{ Form::label('description','Description',array('id'=>'','class'=>'control-label')) }}
-				  {{ Form::textarea('body','',array('id'=>'','class'=>'form-control')) }}
+				  {{ Form::textarea('body','',array('id'=>'','class'=>'form-control', 'required' => '', 'maxlength' => '1000')) }}
 
 				  
 				  <!-- submit buttons -->
@@ -63,4 +67,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('jsfile')
+	{!! Html::script('js/parsley.min.js') !!}
 @endsection

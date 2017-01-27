@@ -1,6 +1,7 @@
 @extends('layouts.pages')
 
 @section('title', 'Contact')
+@section('active4', 'active')
 
 @section('content')
 <div class="container">

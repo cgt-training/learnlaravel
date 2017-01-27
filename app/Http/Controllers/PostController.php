@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 
+use Illuminate\Support\Facades\DB;
 use App\Post;
 use Session;
 
@@ -19,7 +20,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $AllPosts = DB::table('posts')->get();
+        //echo '<pre>'; print_r($AllPosts); die;
+        return view('post.index')->with('AllPosts',$AllPosts);
     }
 
     /**
@@ -71,7 +74,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $postfind = DB::table('posts')->where('id', $id)->get();
+        //echo '<pre>'; print_r($postfind[0]->title); die;
+        return view('post.show')->with('data',$postfind);
     }
 
     /**
@@ -82,7 +87,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        // return the view and pass in the var we previously created
+        return view('post.edit')->withPost($post);
     }
 
     /**
@@ -94,7 +101,17 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, array(
+                'title'         => 'required|max:255',
+                'body'          => 'required'
+        ));
+
+       $post = POST::find($id);
+       $post->title = $request->title;
+       $post->body =  $request->body;
+       $post->save();
+       Session::flash('success', 'The blog post was successfully update!');
+       return redirect()->route('posts.show', $post->id);
     }
 
     /**
@@ -105,6 +122,8 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+       $post = Post::findOrFail($id);
+        $post->delete();
+        return redirect()->route('posts.index');
     }
 }

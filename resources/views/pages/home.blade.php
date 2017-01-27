@@ -3,6 +3,7 @@
 @extends('layouts.pages')
 
 @section('title', 'Home')
+@section('active1', 'active')
 
 @section('content')
 <div class="container">
