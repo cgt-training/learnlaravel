@@ -7,7 +7,7 @@
 
 @section('content')
 <div class="container">
-	@include('partials._massage')
+	
 	<div class="row">
         <div class="col-md-7">
            	<h1>{{ $data[0]->title }}</h1><br>
@@ -20,7 +20,8 @@
         			url:
         		</dt>
         		<dd>
-        			{{Request::url()}}
+        			<!-- {{Request::url()}} -->
+        			<a href="{{url('/blog/'.$data[0]->slug)}}">{{url($data[0]->slug)}}</a>
         		</dd>
         	</dl>
         	<dl class="dl-horizontal">

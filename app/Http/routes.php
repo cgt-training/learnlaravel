@@ -15,6 +15,12 @@
 //     return view('welcome');
 // });
 
+	Route::get('/blog/{slug}',['as' => 'blog.single', 'uses'=> 
+		'BlogController@getSingle'])->where('slug','[\w\d\-\_]+');
+
+	Route::get('home', 'BlogController@index');
+	// Route::put('pagination', 'PostController@pagination');
+
 
 	Route::get('', 'PagesController@index');
 	Route::get('about', 'PagesController@about');

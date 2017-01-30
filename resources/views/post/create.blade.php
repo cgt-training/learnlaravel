@@ -19,6 +19,11 @@
 				 
 				  {{ Form::label('posttitle','Post Title',array('id'=>'','class'=>'control-label')) }}
 				  {{ Form::text('title','',array('id'=>'','class'=>'form-control', 'required' => '', 'maxlength' => '25')) }}
+
+				  <!-- text input field -->
+				 
+				  {{ Form::label('postslug','Post Slug',array('id'=>'','class'=>'control-label')) }}
+				  {{ Form::text('slug','',array('id'=>'','class'=>'form-control', 'required' => '', 'maxlength' => '255')) }}
 				  
 				  <!-- textarea field -->
 				  

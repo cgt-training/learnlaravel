@@ -3,7 +3,7 @@
 @yield('style')
 <body id="app-layout">
    @include('partials._nav')
-
+@include('partials._massage')
     @yield('content')
 
     <!-- JavaScripts -->

@@ -13,6 +13,12 @@
         	<h2>All Posts</h2>
   			<p>You Can See Here Your All Posts</p>
 
+  			<!-- {{ Form::open(array('method' => 'put', 'url' => "pagination", 'name' => "frm_select_page")) }}
+    			
+    			{{ Form::select('totalrecords', ['5' => '5', '10' => '10', '20' => '20', '50' => '50', '100' => '100'], null, array('class' => 'form-control my-select', 'name' => 'totalrecords', "onchange" => "document.frm_select_page.submit();")) }}
+
+			{!! Form::close() !!} -->
+
   			 <a style="float: right; margin-bottom: 2%;" href="{{ url(url('posts/create')) }}" class="btn btn-primary btn-lg">Create New Post</a>
 
         <table class="table table-bordered">
@@ -26,18 +32,20 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			<?php $i=1;  ?>
            	@foreach ($AllPosts as $post)
 						
 						<tr>
-							<th>{{ $i }}</th>
+							<th>{{ $post->id }}</th>
 							<td>{{ $post->title }}</td>
 							<td>{{ substr($post->body, 0, 50) }}{{ strlen($post->body) > 50 ? "..." : "" }}</td>
 							<td>{{ date('M j, Y', strtotime($post->created_at)) }}</td>
 							<td><a href="{{ route('posts.show', $post->id) }}" class="btn btn-default btn-sm">View</a> <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-default btn-sm">Edit</a></td>
 						</tr>
-				<?php $i++; ?>
 			@endforeach
+			<tr>
+				<td colspan="5" style="text-align: center;">
+				{{ $AllPosts->links() }}</td>
+			</tr>
 			</tbody>
 			</table>
 			
@@ -47,3 +55,7 @@
     </div>
 </div>
 @endsection
+
+<style type="text/css">
+	.my-select{width: 10% !important; position: absolute !important;}
+</style>

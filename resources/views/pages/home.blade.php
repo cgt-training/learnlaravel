@@ -17,85 +17,17 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-8">
-              <div class="post">
-                <h3>Post Title</h3>
-                <p class="lead">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                <p><a class="btn btn-primary btn-lg" href="#" role="button">Read More</a></p>
-              </div>
+      @foreach ($AllPosts as $post)
+          <div class="row">
+            <div class="col-md-8">
+                  <div class="post">
+                    <h3>{{ $post->title }}</h3>
+                    <p class="lead">{{ substr($post->body, 0, 85) }}{{ strlen($post->body) > 85 ? "..." : "" }}</p>
+                    <p><a class="btn btn-primary btn-lg" href="{{url('/blog/'.$post->slug)}}" role="button">Read More</a></p>
+                  </div>
+            </div>
         </div>
-    </div>
+      @endforeach
 
-    <div class="row">
-        <div class="col-md-8">
-              <div class="post">
-                <h3>Post Title</h3>
-                <p class="lead">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                <p><a class="btn btn-primary btn-lg" href="#" role="button">Read More</a></p>
-              </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-8">
-              <div class="post">
-                <h3>Post Title</h3>
-                <p class="lead">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                <p><a class="btn btn-primary btn-lg" href="#" role="button">Read More</a></p>
-              </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-8">
-              <div class="post">
-                <h3>Post Title</h3>
-                <p class="lead">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                <p><a class="btn btn-primary btn-lg" href="#" role="button">Read More</a></p>
-              </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-8">
-              <div class="post">
-                <h3>Post Title</h3>
-                <p class="lead">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                <p><a class="btn btn-primary btn-lg" href="#" role="button">Read More</a></p>
-              </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-8">
-              <div class="post">
-                <h3>Post Title</h3>
-                <p class="lead">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                <p><a class="btn btn-primary btn-lg" href="#" role="button">Read More</a></p>
-              </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-8">
-              <div class="post">
-                <h3>Post Title</h3>
-                <p class="lead">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                <p><a class="btn btn-primary btn-lg" href="#" role="button">Read More</a></p>
-              </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-8">
-              <div class="post">
-                <h3>Post Title</h3>
-                <p class="lead">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                <p><a class="btn btn-primary btn-lg" href="#" role="button">Read More</a></p>
-              </div>
-        </div>
-    </div>
-    
 </div>
 @endsection
