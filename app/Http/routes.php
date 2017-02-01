@@ -15,15 +15,25 @@
 //     return view('welcome');
 // });
 
+
+	Route::auth();
+
 	Route::get('/blog/{slug}',['as' => 'blog.single', 'uses'=> 
 		'BlogController@getSingle'])->where('slug','[\w\d\-\_]+');
 
 	Route::get('home', 'BlogController@index');
+	
 	// Route::put('pagination', 'PostController@pagination');
 
 
-	Route::get('', 'PagesController@index');
+	Route::get('', 'BlogController@index');
 	Route::get('about', 'PagesController@about');
 	Route::get('contact', 'PagesController@contact');
 
 	Route::resource('posts','PostController');
+
+	Route::get('login', array('as' => 'login', 'uses' => 'Auth\AuthController@getLogin'));
+	Route::get('register', array('as'=>'register', 'uses' => 'Auth\AuthController@getRegister'));
+
+
+	Route::resource('catogories','CategoryController');
