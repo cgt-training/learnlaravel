@@ -13,9 +13,11 @@
         	<h2>All Posts</h2>
   			<p>You Can See Here Your All Posts</p>
 
-  			<!-- {{ Form::open(array('method' => 'put', 'url' => "pagination", 'name' => "frm_select_page")) }}
-    			
-    			{{ Form::select('totalrecords', ['5' => '5', '10' => '10', '20' => '20', '50' => '50', '100' => '100'], null, array('class' => 'form-control my-select', 'name' => 'totalrecords', "onchange" => "document.frm_select_page.submit();")) }}
+  			<?php if(!isset($page)) { $page = ''; } ?>
+
+  			<!-- {{ Form::model($page, array('method' => 'put', 'url' => "pagination", 'name' => "frm_select_page")) }}
+
+  			{{ Form::select('totalrecords', ['5' => '5', '10' => '10', '20' => '20', '50' => '50', '100' => '100'], null, array('class' => 'form-control my-select', 'name' => 'totalrecords', "onchange" => "document.frm_select_page.submit();")) }}
 
 			{!! Form::close() !!} -->
 

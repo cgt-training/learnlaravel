@@ -28,7 +28,7 @@
 
 				        <p>{{ Form::checkbox('remember', '', array('class'=>'form-control') ) }}Remember Me</p> 
 				 
-				        <p>{{ Form::submit('Submit', array('class' => 'btn btn-success')) }}<br><!--<a class="btn btn-link" href="/password/reset">Forgot Your Password?</a> --></p>
+				        <p>{{ Form::submit('Submit', array('class' => 'btn btn-success')) }}<br><a class="btn btn-link" href="{{ url('password/reset') }}">Forgot Your Password?</a> </p>
 				 
 				    {{ Form::close() }}
                 </div>
