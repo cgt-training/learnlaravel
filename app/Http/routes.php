@@ -21,6 +21,14 @@
 	Route::get('/blog/{slug}',['as' => 'blog.single', 'uses'=> 
 		'BlogController@getSingle'])->where('slug','[\w\d\-\_]+');
 
+	Route::get('/blog/{id}/{slug}',['as' => 'blog.edit', 'uses'=> 
+		'BlogController@edit'])->where('slug','[\w\d\-\_]+');
+
+	Route::put('/blog/{id}',['as' => 'blog.update', 'uses'=> 
+		'BlogController@update'])->where('slug','[\w\d\-\_]+');
+
+
+
 	Route::get('home', 'BlogController@index');
 	
 	// Route::put('pagination', 'PostController@pagination');
@@ -37,6 +45,8 @@
 
 
 	Route::resource('catogories','CategoryController');
+	Route::resource('tags','TagController');
+	Route::resource('comments','CommentController');
 
 	Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
 	Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail');

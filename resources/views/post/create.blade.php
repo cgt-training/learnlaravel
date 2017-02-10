@@ -7,6 +7,7 @@
 
 @section('style')
 	{!! Html::style('css/parsley.css') !!}
+	{!! Html::style('css/select2.min.css') !!}
 @endsection
 
 @section('content')
@@ -22,9 +23,28 @@
 
 				  <!-- text input field -->
 				 
-				  {{ Form::label('postslug','Post Slug',array('id'=>'','class'=>'control-label')) }}
+				{{ Form::label('postslug','Post Slug',array('id'=>'','class'=>'control-label')) }}
 				  {{ Form::text('slug','',array('id'=>'','class'=>'form-control', 'required' => '', 'maxlength' => '255')) }}
+
 				  
+				{{ Form::label('select_category','Select Category',array('id'=>'','class'=>'control-label')) }}  
+				<select class="form-control my-select" name="category_id" required>
+				<option value="">Select Category</option>
+				    @foreach($allCategories as $allCategoriess)
+				        <option value="{{$allCategoriess->id}}">{{$allCategoriess->cat_name}}</option>
+				    @endforeach
+			    </select>
+
+
+			    {{ Form::label('select_tag','Select Tags',array('id'=>'','class'=>'control-label')) }} 
+			    <select class="form-control select2-multi" name="tags[]" multiple="multiple">
+					@foreach($tags as $tag)
+						<option value='{{ $tag->id }}'>{{ $tag->name }}</option>
+					@endforeach
+
+				</select>
+
+			    
 				  <!-- textarea field -->
 				  
 				  {{ Form::label('description','Description',array('id'=>'','class'=>'control-label')) }}
@@ -42,10 +62,6 @@
 				  <!-- email input -->
 				  <!-- {{ Form::label('email','Email',array('id'=>'','class'=>'')) }}
 				  {{ Form::email('email','hello@clivern.com',array('id'=>'','class'=>'')) }} -->
-				  
-				  <!-- select box -->
-				  <!-- {{ Form::label('status','Status',array('id'=>'','class'=>'')) }}
-				  {{ Form::select('status',array('enabled'=>'Enabled','disabled'=>'Disabled'),'enabled') }} -->
 				  
 				  <!-- radio buttons -->
 				  <!-- {{ Form::label('status','Status',array('id'=>'','class'=>'')) }}
@@ -76,4 +92,11 @@
 
 @section('jsfile')
 	{!! Html::script('js/parsley.min.js') !!}
+	{!! Html::script('js/select2.min.js') !!}
+
+	<script type="text/javascript">
+		$('.select2-multi').select2();
+	</script>
 @endsection
+
+	

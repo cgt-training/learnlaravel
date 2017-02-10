@@ -16,7 +16,6 @@
       <ul class="nav navbar-nav">
         
         <li class="@yield('active1')"><a href="{{ url('home') }}">Home </a></li>
-        <li class="@yield('active2')"><a href="{{ url(url('posts')) }}">Post </a></li>
         <li class="@yield('active3')"><a href="{{ url('about') }}">About  </a></li>
         <li class="@yield('active4')"><a href="{{ url('contact') }}">Contact  </a></li>
         
@@ -44,8 +43,9 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Post</a></li>
+                                <li><a href="{{ url(url('posts')) }}">Post </a></li>
                                 <li><a href="{{ url('catogories') }}">Category</a></li>
+                                <li><a href="{{ url('tags') }}">Tag</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>

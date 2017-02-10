@@ -29,19 +29,19 @@
               <tbody>
             @foreach ($allcat as $cat)
                         
-                        <tr>
-                            <th>{{ $cat->id }}</th>
-                            <td>{{ $cat->cat_name }}</td>
-                            <td>{{ date('M j, Y', strtotime($cat->created_at)) }}</td>
-                            <td> 
-                            
-                            
-                            {{ Form::open(['method' => 'DELETE', 'route' => ['catogories.destroy', $cat->id]]) }}
-                            <a href="{{ route('catogories.edit', $cat->id) }}" class="btn btn-primary btn-sm">Edit</a>
-   			 				{{ Form::submit('Delete Post', ['class' => 'btn btn-danger btn-sm']) }}
-							{{ Form::close() }}
-                            </td>
-                        </tr>
+                <tr>
+                    <th>{{ $cat->id }}</th>
+                    <td>{{ $cat->cat_name }}</td>
+                    <td>{{ date('M j, Y', strtotime($cat->created_at)) }}</td>
+                    <td> 
+                    
+                    
+                    {{ Form::open(['method' => 'DELETE', 'route' => ['catogories.destroy', $cat->id]]) }}
+                    <a href="{{ route('catogories.edit', $cat->id) }}" class="btn btn-primary btn-sm">Edit</a>
+	 				          {{ Form::submit('Delete Category', ['class' => 'btn btn-danger btn-sm']) }}
+			               {{ Form::close() }}
+                    </td>
+                </tr>
             @endforeach
             
             </tbody>
@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="panel-body">
-               
+              
                 @if(isset($category))
                  <!-- {{$category}} -->
                    	{!! Form::model($category, ['route' => ['catogories.update', $category->id], 'data-parsley-validate' => '', 'method' => 'PUT']) !!}
