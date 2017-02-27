@@ -24,11 +24,14 @@
             @foreach($post->tags as $tag)
               <span class="badge">{{ $tag->name }}</span>
             @endforeach
+            <br><br>
+            {{ HTML::image('images/'.$post->image, '', array('class' => 'is')) }}
         </div>
     </div>
 
 <?php //echo '<pre>'; print_r($comment);  ?>
    <br><br>
+
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             @if(!isset($comment[0]->id))
@@ -49,8 +52,12 @@
 
                  {{ Form::open(['method' => 'DELETE', 'route' => ['comments.destroy', $comments->id]]) }}
                  {!! Form::hidden('slug', $post->slug) !!}
+                  @can('edit_topic')                 
                     <a href="{{ route('blog.edit', [$comments->id, $post->slug]) }}" title="Edit" class="btn btn-primary btn-block btn-sm">Edit</a>
+                  @endcan
+                  @can('delete_topic')
                   {{ Form::submit('Delete Category', ['class' => 'btn btn-danger btn-block btn-sm', 'title' => 'Delete']) }}
+                  @endcan
                   {{ Form::close() }}  
               
                   </div>
@@ -64,7 +71,7 @@
 
     <div class="row">
     <br><br><br>
-    
+       @can('comment_topic')
         <div class="col-md-8 col-md-offset-2">
         <h3>Leave a Comment :- </h3><br>
         @if(!isset($getcomment[0]->id))
@@ -143,12 +150,13 @@
       {{ Form::close() }}
       @endif
         </div>
-       
+       @endcan
     </div>
 </div>
 <br><br><br><br>
 <style type="text/css">
   .m{ width: 80%; margin-left: 2%; padding: 0px 0px 0px 15px; border: none; color: brown; }
+  .is{width: 50%; }
 </style>
 @endsection
 

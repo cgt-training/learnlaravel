@@ -159,6 +159,9 @@ return [
         // for form builder 
         Collective\Html\HtmlServiceProvider::class,
 
+        //For Image
+        Intervention\Image\ImageServiceProvider::class
+
     ],
 
     /*
@@ -209,6 +212,9 @@ return [
         
       'Form' => Collective\Html\FormFacade::class,
       'Html' => Collective\Html\HtmlFacade::class,
+
+      // For Image
+      'Image' => Intervention\Image\Facades\Image::class
 
     ],
 

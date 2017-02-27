@@ -50,6 +50,9 @@
 				  {{ Form::label('description','Description',array('id'=>'','class'=>'control-label')) }}
 				  {{ Form::textarea('body','',array('id'=>'','class'=>'form-control', 'required' => '', 'maxlength' => '1000')) }}
 
+				  {{ Form::label('image','Upload Image',array('class'=>'control-label')) }}
+				  {{Form::file('featured_img',array('class'=>'form-control'))}}
+
 				  
 				  <!-- submit buttons -->
 				 {{ Form::submit('Create Post', array('class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top: 20px;')) }}	
@@ -85,6 +88,7 @@
 <!-- Create Post Form -->
 				  
 			{{ Form::close() }}
+			<br><br><br>
         </div>
     </div>
 </div>

@@ -11,10 +11,31 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
+//for admin
+
+	// Route::get('/dashboard',function(){
+	// 	return view('admin.layout');
+	// });
+
+	// Route::get('/admin', function () {
+	//     return view('login');
+	// });
+
+	Route::get('/admin','Adminauth\AuthController@showLoginForm');
+	Route::post('/loginadmin','Adminauth\AuthController@login');
+
+	Route::group(['middleware' => ['admin']], function(){
+		Route::get('/dashboard','Admin\AdminController@dashboard');
+		Route::get('/logoutadmin','Adminauth\AuthController@logout');
+
+		Route::get('/postindexadmin','Admin\PostController@index');
+		Route::get('/createpostadmin','Admin\PostController@create');
+		Route::post('/adminpoststore','Admin\PostController@store');
+		Route::resource('postadmin','Admin\PostController');
+	});
+
+//********//
 
 	Route::auth();
 
@@ -51,3 +72,6 @@
 	Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
 	Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
 	Route::post('password/reset', 'Auth\PasswordController@reset');
+
+
+	

@@ -5,11 +5,16 @@
 @section('title', 'Show Post')
 @section('active2', 'active')
 
+@section('style')
+    {!! Html::style('css/parsley.css') !!}
+@endsection
+
 @section('content')
 <div class="container">
 	
 	<div class="row">
         <div class="col-md-7">
+            {{ HTML::image('images/'.$data[0]->image, '', array('class' => 'is')) }}
            	<h1>{{ $data[0]->title }}</h1><br>
            	<h4 style="text-align: justify;">{{ $data[0]->body }}</h4>
         </div>
@@ -45,17 +50,20 @@
         		</dd>
         	</dl>
         
-
+            
         <div class="col-md-6">
+        @can('edit_topic')
            	 {!! Html::linkRoute('posts.edit', 'Edit Post', array($data[0]->id), array('class' => 'btn btn-primary btn-block')) !!}
-
+        @endcan     
         </div>
+           
 
         <div class="col-md-6">
+        @can('delete_topic')
         {{ Form::open(['method' => 'DELETE', 'route' => ['posts.destroy', $data[0]->id]]) }}
    			 {{ Form::submit('Delete Post', ['class' => 'btn btn-danger btn-block']) }}
 		{{ Form::close() }}
-
+        @endcan   
            	 <!-- {!! Html::linkRoute('posts.destroy', 'Delete Post', array($data[0]->id), array('class' => 'btn btn-danger btn-block')) !!} -->
 
         </div>
@@ -71,5 +79,6 @@
 </div>
 <style type="text/css">
 	dt{text-align: left !important;}
+    .is{width: 30%; }
 </style>
 @endsection

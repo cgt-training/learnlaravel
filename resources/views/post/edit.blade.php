@@ -14,7 +14,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-           	{!! Form::model($post, ['route' => ['posts.update', $post->id], 'data-parsley-validate' => '', 'method' => 'PUT']) !!}
+           	{!! Form::model($post, ['route' => ['posts.update', $post->id], 'data-parsley-validate' => '', 'method' => 'PUT', 'files' => 'true']) !!}
 		<div class="col-md-8">
 			{{ Form::label('title', 'Title:') }}
 			{{ Form::text('title', null, ["class" => 'form-control input-lg', "required" => '']) }}
@@ -29,7 +29,10 @@
 			{{ Form::label('select_tag','Select Tags',array('id'=>'','class'=>'control-label')) }} 
 			{{ Form::select('tags[]',$tags, null, array('class' => 'form-control select2-multi', 'multiple' => 'multiple')) }}
 
-			
+			{{ Form::label('image','Upload Image',array('class'=>'control-label')) }}
+			{{Form::file('featured_img',array('class'=>'form-control'))}}
+			{{ HTML::image('images/'.$post->image, '', array('class' => 'is')) }}
+			<br>
 			{{ Form::label('body', "Body:", ['class' => 'form-spacing-top']) }}
 			{{ Form::textarea('body', null, ['class' => 'form-control', "required" => '']) }}
 
@@ -49,4 +52,7 @@
 		$('.select2-multi').select2().val({!! json_encode($post->tags()->getRelatedIds()) !!}).trigger('change');
 
 	</script>
+	<style type="text/css">
+	.is{width: 30%; }
+	</style>
 @endsection

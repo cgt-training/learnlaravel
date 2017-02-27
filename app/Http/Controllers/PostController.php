@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use App\Post;
 use App\Tag;
 use Session;
+use Image;
+use Storage;
 
 class PostController extends Controller
 {
@@ -61,22 +63,25 @@ class PostController extends Controller
                 'slug'         => 'required|alpha_dash|min:5|max:255|unique:posts,slug',
                 'category_id'  => 'required',
                 'tags'         => 'required',
-                'body'         => 'required'
+                'body'         => 'required',
+
+                'featured_img' => 'sometimes|image'
             ));
         // store in the database
         $post = new Post;
         $post->title = $request->title;
         $post->slug = $request->slug;
         $post->category_id = $request->category_id;
-        // $post->category_id = $request->category_id;
         $post->body = $request->body;
-        // if ($request->hasFile('featured_img')) {
-        //   $image = $request->file('featured_img');
-        //   $filename = time() . '.' . $image->getClientOriginalExtension();
-        //   $location = public_path('images/' . $filename);
-        //   Image::make($image)->resize(800, 400)->save($location);
-        //   $post->image = $filename;
-        // }
+        
+        if ($request->hasFile('featured_img')) {
+          $image = $request->file('featured_img');
+          $file_name = time() . '.' . $image->getClientOriginalExtension();
+          $path = public_path('images/' . $file_name);
+          Image::make($image)->resize(800, 400)->save($path);
+          $post->image = $file_name;
+        }
+
         $post->save();
         
         $post->tags()->sync($request->tags, false);
@@ -137,11 +142,12 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $post = POST::find($id);
-        // echo '<pre>'; print_r($post->slug); die;
+        // echo '<pre>'; print_r($post); die;
         if($request->input('slug') == $post->slug) {
             $this->validate($request, array(
                 'title'         => 'required|max:255',
                 'category_id'  => 'required',
+                'featured_img' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg',
                 'body'          => 'required'
             ));
         } else {
@@ -149,6 +155,7 @@ class PostController extends Controller
                     'title'         => 'required|max:255',
                     'slug'         => 'required|alpha_dash|min:5|max:255|unique:posts,slug',
                     'category_id'  => 'required',
+                    'featured_img' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg',
                     'body'          => 'required'
             ));
         }    
@@ -157,8 +164,27 @@ class PostController extends Controller
        $post->slug = $request->slug;
        $post->category_id = $request->category_id;
        $post->body =  $request->body;
+
+       
+       //save file
+       if ($request->hasFile('featured_img')) {
+          $image = $request->file('featured_img');
+          $file_name = time() . '.' . $image->getClientOriginalExtension();
+          $path = public_path('images/' . $file_name);
+          Image::make($image)->resize(800, 400)->save($path);
+          
+          //delete old images and save new post image
+          $oldimage = $post->image;
+          Storage::delete($oldimage);
+
+         $post->image = $file_name;
+        }
+
+       
+
        $post->save();
 
+       // sync id's tags and posts
        if(isset($request->tags)){
             $post->tags()->sync($request->tags);
        } else {
@@ -178,7 +204,13 @@ class PostController extends Controller
     public function destroy($id)
     {
        $post = Post::findOrFail($id);
-        $post->delete();
-        return redirect()->route('posts.index');
+
+       //remove image before delete post
+       $oldimage = $post->image;
+       Storage::delete($oldimage);
+DB::table('post_tag')->where('post_id', $id)->delete();
+       //delete post
+       $post->delete();
+       return redirect()->route('posts.index');
     }
 }

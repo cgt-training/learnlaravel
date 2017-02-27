@@ -15,7 +15,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         
-        <li class="@yield('active1')"><a href="{{ url('home') }}">Home </a></li>
+        <li class="@yield('active1')"><a href="{{ url('home') }}">Blog </a></li>
         <li class="@yield('active3')"><a href="{{ url('about') }}">About  </a></li>
         <li class="@yield('active4')"><a href="{{ url('contact') }}">Contact  </a></li>
         

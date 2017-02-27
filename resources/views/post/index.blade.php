@@ -20,9 +20,9 @@
   			{{ Form::select('totalrecords', ['5' => '5', '10' => '10', '20' => '20', '50' => '50', '100' => '100'], null, array('class' => 'form-control my-select', 'name' => 'totalrecords', "onchange" => "document.frm_select_page.submit();")) }}
 
 			{!! Form::close() !!} -->
-
+			@can('create_topic')
   			 <a style="float: right; margin-bottom: 2%;" href="{{ url(url('posts/create')) }}" class="btn btn-primary btn-lg">Create New Post</a>
-
+  			@endcan
         <table class="table table-bordered">
         	<thead class="thead-inverse">
 			    <tr class="info">
@@ -41,7 +41,11 @@
 							<td>{{ $post->title }}</td>
 							<td>{{ substr($post->body, 0, 50) }}{{ strlen($post->body) > 50 ? "..." : "" }}</td>
 							<td>{{ date('M j, Y', strtotime($post->created_at)) }}</td>
-							<td><a href="{{ route('posts.show', $post->id) }}" class="btn btn-default btn-sm">View</a> <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-default btn-sm">Edit</a></td>
+							<td style="text-align: center;"><a href="{{ route('posts.show', $post->id) }}" class="btn btn-default btn-sm">View</a> 
+							@can('edit_topic')	
+							<a href="{{ route('posts.edit', $post->id) }}" class="btn btn-default btn-sm">Edit</a>
+							@endcan
+							</td>
 						</tr>
 			@endforeach
 			<tr>

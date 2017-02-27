@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use Illuminate\Support\Facades\DB;
-use App\tag;
+use App\Tag;
 use Session;
 
 class TagController extends Controller
