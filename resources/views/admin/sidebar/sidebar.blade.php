@@ -18,8 +18,32 @@
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="{!!url('postadmin')!!}">All Posts</a></li>
-                          <li><a class="" href="{!!url('postadmin/create')!!}">Add New Post</a></li>
+                          <li><a href="{!!url('postadmin')!!}">All Posts</a></li>
+                          <li><a href="{!!url('postadmin/create')!!}">Add New Post</a></li>
+                      </ul>
+                  </li>
+
+                  <li class="sub-menu">
+                      <a href="javascript:;" class="">
+                          <i class="icon_desktop"></i>
+                          <span>Users</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a href="{{ url('/registeradmin') }}">Register New user</a></li>
+                          <li><a href="{!!url('/allusers')!!}">All Users</a></li>
+                      </ul>
+                  </li>
+
+                  <li class="sub-menu">
+                      <a href="javascript:;" class="">
+                          <i class="icon_desktop"></i>
+                          <span>Settings</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a href="{{ url('/permission') }}">Permissions</a></li>
+                          <li><a href="{!!url('/role')!!}">Roles</a></li>
                       </ul>
                   </li>
 
@@ -27,12 +51,12 @@
 				  <li class="sub-menu">
                       <a href="javascript:;" class="">
                           <i class="icon_document_alt"></i>
-                          <span>Forms</span>
+                          <span>Assign</span>
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="form_component.html">Form Elements</a></li>                          
-                          <li><a class="" href="form_validation.html">Form Validation</a></li>
+                          <li><a href="{!!url('/assign')!!}">Assign Permissions</a></li>
+                          <li><a href="{!!url('/assignrole')!!}">Assign Role</a></li>
                       </ul>
                   </li>       
                   <li class="sub-menu">
@@ -47,12 +71,12 @@
                           <li><a class="" href="grids.html">Grids</a></li>
                       </ul>
                   </li>
-                  <li>
+                  <!-- <li>
                       <a class="" href="widgets.html">
                           <i class="icon_genius"></i>
                           <span>Widgets</span>
                       </a>
-                  </li>
+                  </li> 
                   <li>                     
                       <a class="" href="chart-chartjs.html">
                           <i class="icon_piechart"></i>
@@ -85,7 +109,7 @@
                           <li><a class="" href="blank.html">Blank Page</a></li>
                           <li><a class="" href="404.html">404 Error</a></li>
                       </ul>
-                  </li>
+                  </li>-->  
                   
               </ul>
               <!-- sidebar menu end-->

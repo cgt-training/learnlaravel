@@ -17,7 +17,7 @@
   			{{ Form::select('totalrecords', ['5' => '5', '10' => '10', '20' => '20', '50' => '50', '100' => '100'], null, array('class' => 'form-control my-select', 'name' => 'totalrecords', "onchange" => "document.frm_select_page.submit();")) }}
 
 			{!! Form::close() !!} -->
-			@if (Auth::guard('admin')->user()->can('create_topic'))
+			@if (Auth::guard('admin')->user()->can('create_post'))
   			 <a style="float: right; margin-bottom: 2%;" href="{{ route('postadmin.create') }}" class="btn btn-primary btn-lg">Create New Post</a>
   			@endif
 
@@ -41,9 +41,11 @@
 							<td>{{ date('M j, Y', strtotime($post->created_at)) }}</td>
 							<td style="text-align: center;">
 
+								
 							<a href="{{ route('postadmin.show', $post->id) }}" class="btn btn-default btn-sm">View</a> 
+							
 
-							@if (Auth::guard('admin')->user()->can('edit_topic'))
+							@if (Auth::guard('admin')->user()->can('edit_post'))
 							<a href="{{ route('postadmin.edit', $post->id) }}" class="btn btn-default btn-sm">Edit</a>
 							@endif
 										

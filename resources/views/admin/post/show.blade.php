@@ -48,14 +48,14 @@
         
             
         <div class="col-md-6">
-        @if (Auth::guard('admin')->user()->can('edit_topic'))
+        @if (Auth::guard('admin')->user()->can('edit_post'))
            	 {!! Html::linkRoute('postadmin.edit', 'Edit Post', array($data[0]->id), array('class' => 'btn btn-primary btn-block')) !!}
         @endif  
         </div>
            
 
         <div class="col-md-6">
-       @if (Auth::guard('admin')->user()->can('delete_topic'))
+       @if (Auth::guard('admin')->user()->can('delete_post'))
         {{ Form::open(['method' => 'DELETE', 'route' => ['postadmin.destroy', $data[0]->id]]) }}
    			 {{ Form::submit('Delete Post', ['class' => 'btn btn-danger btn-block']) }}
 		{{ Form::close() }}
