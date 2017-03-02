@@ -10,12 +10,20 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Session;
 use Illuminate\Support\Facades\Hash;
+use Auth;
 
 class UserController extends Controller
 {
     protected function getRegister()
     {
-        return $this->showRegistrationForm();
+        if (Auth::guard('admin')->user()->can('create_user')) {
+            return $this->showRegistrationForm();
+        } 
+        else 
+        {
+            Session::flash('error', 'You are not Authorised');
+            return redirect()->route('adminhome');
+        }
     }
 
     /**
@@ -61,9 +69,16 @@ class UserController extends Controller
     }
 
     protected function destroy($id) {
-	   $user = User::findOrFail($id);
-       $user->delete();
-       return redirect()->route('adminhome');
+       if (Auth::guard('admin')->user()->can('delete_user')) { 
+    	   $user = User::findOrFail($id);
+           $user->delete();
+           return redirect()->route('adminhome');
+        }
+        else 
+        {
+            Session::flash('error', 'You are not Authorised');
+            return redirect()->route('adminhome');
+        }   
     }
 
 }

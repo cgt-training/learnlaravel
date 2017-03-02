@@ -6,9 +6,23 @@
 @endsection
 
 @section('content')
+      <section id="main-content">
+          <section class="wrapper">            
+              <!--overview start-->
+              <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"><i class="fa fa-laptop"></i> View Post</h3>
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+                        <li><i class="fa fa-laptop"></i>View Post</li>                          
+                    </ol>
+                </div>
+            </div>
+
+
 	<div class="row">
-        <div class="col-md-5 col-md-offset-2">
-        <br><br><br><br><br>
+        <div class="col-md-5 col-md-offset-1">
+       
             {{ HTML::image('images/'.$data[0]->image, '', array('class' => 'is')) }}
            	<h1>{{ $data[0]->title }}</h1><br>
            	<h4 style="text-align: justify;">{{ $data[0]->body }}</h4>
@@ -48,18 +62,18 @@
         
             
         <div class="col-md-6">
-        @if (Auth::guard('admin')->user()->can('edit_post'))
+        <?php /*@if (Auth::guard('admin')->user()->can('edit_post')) */ ?>
            	 {!! Html::linkRoute('postadmin.edit', 'Edit Post', array($data[0]->id), array('class' => 'btn btn-primary btn-block')) !!}
-        @endif  
+        <?php /* @endif */ ?>  
         </div>
            
 
         <div class="col-md-6">
-       @if (Auth::guard('admin')->user()->can('delete_post'))
-        {{ Form::open(['method' => 'DELETE', 'route' => ['postadmin.destroy', $data[0]->id]]) }}
+       <?php /* @if (Auth::guard('admin')->user()->can('delete_post')) */ ?>
+        {{ Form::open(['method' => 'DELETE', 'route' => ['postadmin.destroy', $data[0]->id], 'class' => 'delete']) }}
    			 {{ Form::submit('Delete Post', ['class' => 'btn btn-danger btn-block']) }}
 		{{ Form::close() }}
-        @endif 
+        <?php /* @endif */ ?>
            	 <!-- {!! Html::linkRoute('posts.destroy', 'Delete Post', array($data[0]->id), array('class' => 'btn btn-danger btn-block')) !!} -->
 
         </div>
@@ -76,4 +90,16 @@
 	dt{text-align: left !important;}
     .is{width: 30%; }
 </style>
+
+</section>
+</section>
+@endsection
+
+@section('jsfile')
+    {!! Html::script('js/parsley.min.js') !!}
+  <script>
+    $(".delete").on("submit", function(){
+        return confirm("Do you want to delete this?");
+    });
+</script>
 @endsection

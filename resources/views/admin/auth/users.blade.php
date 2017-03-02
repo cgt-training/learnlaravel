@@ -3,10 +3,23 @@
 
 @section('content')
 
+<section id="main-content">
+          <section class="wrapper">            
+              <!--overview start-->
+			  <div class="row">
+				<div class="col-lg-12">
+					<h3 class="page-header"><i class="fa fa-laptop"></i>Users List</h3>
+					<ol class="breadcrumb">
+						<li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+						<li><i class="fa fa-laptop"></i>All Users</li>						  	
+					</ol>
+				</div>
+			</div>
+
 	@include('partials._massage')
 	<div class="row">
-        <div class="col-md-10 col-md-offset-2">
-        <br><br><br>
+        <div class="col-md-10 col-md-offset-1">
+        
         	<h2>All Posts</h2>
   			<p>You Can See Here Your All Posts</p>
 
@@ -40,7 +53,7 @@
 							
 							<!-- <a href="{{ route('postadmin.edit', $user->id) }}" class="btn btn-default btn-sm">Edit</a> -->
 							
-						{{ Form::open(['method' => 'DELETE', 'route' => ['userdestroy', $user->id]]) }}
+						{{ Form::open(['method' => 'DELETE', 'route' => ['userdestroy', $user->id],  'class' =>'delete']) }}
 			 				{{ Form::submit('Delete User', ['class' => 'btn btn-danger btn-sm']) }}
 						{{ Form::close() }}
 										
@@ -58,9 +71,18 @@
 			
         </div>
     </div>
-
+</section>
+</section>
 @endsection
 
 <style type="text/css">
 	.my-select{width: 10% !important; position: absolute !important;}
 </style>
+@section('jsfile')
+	{!! Html::script('js/parsley.min.js') !!}
+  <script>
+    $(".delete").on("submit", function(){
+        return confirm("Do you want to delete this?");
+    });
+</script>
+@endsection

@@ -30,7 +30,7 @@
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a href="{{ url('/registeradmin') }}">Register New user</a></li>
+                          <li><a href="{{ url('/registeradmin') }}">Create New user</a></li>
                           <li><a href="{!!url('/allusers')!!}">All Users</a></li>
                       </ul>
                   </li>

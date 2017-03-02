@@ -42,7 +42,7 @@
 							<td>{{ substr($post->body, 0, 50) }}{{ strlen($post->body) > 50 ? "..." : "" }}</td>
 							<td>{{ date('M j, Y', strtotime($post->created_at)) }}</td>
 							<td style="text-align: center;"><a href="{{ route('posts.show', $post->id) }}" class="btn btn-default btn-sm">View</a> 
-							@can('edit_topic')	
+							@can('edit_post')	
 							<a href="{{ route('posts.edit', $post->id) }}" class="btn btn-default btn-sm">Edit</a>
 							@endcan
 							</td>

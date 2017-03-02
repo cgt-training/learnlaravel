@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Role;
 use Session;
 use App\User;
+use Auth;
 
 class RoleController extends Controller
 {
@@ -49,18 +50,24 @@ class RoleController extends Controller
         // $id=2;
         // Role::assignQuery($id);
         //=============================================
-
-        $this->validate($request, array(
-                'name'         => 'required|max:255',
-                'label'        => 'required|max:1000',
-            ));
-        // store in the database
-        $role = new Role;
-        $role->name = $request->name;
-        $role->label = $request->label;
-        $role->save();
-        Session::flash('success', 'The role was successfully save!');
-        return redirect()->route('roles.index');
+            if (Auth::guard('admin')->user()->can('create_role')) {
+            $this->validate($request, array(
+                    'name'         => 'required|max:255',
+                    'label'        => 'required|max:1000',
+                ));
+            // store in the database
+            $role = new Role;
+            $role->name = $request->name;
+            $role->label = $request->label;
+            $role->save();
+            Session::flash('success', 'The role was successfully save!');
+            return redirect()->route('roles.index');
+        }
+        else {
+            Session::flash('error', 'You are not Authorised');
+            $AllRole = DB::table('roles')->get();
+            return view('admin/permission.role')->withAllrole($AllRole);
+        }
     }
 
     /**
@@ -82,9 +89,17 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $AllRole = DB::table('roles')->get();
-        $role = Role::find($id);
-        return view('admin/permission.role')->withRole($role)->withAllrole($AllRole);
+        if (Auth::guard('admin')->user()->can('edit_role')) {
+            $AllRole = DB::table('roles')->get();
+            $role = Role::find($id);
+            return view('admin/permission.role')->withRole($role)->withAllrole($AllRole);
+        }
+        else 
+        {
+            Session::flash('error', 'You are not Authorised');
+            $AllRole = DB::table('roles')->get();
+            return view('admin/permission.role')->withAllrole($AllRole);  
+        }
     }
 
     /**
@@ -118,16 +133,29 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $role = Role::findOrFail($id);
-        $role->delete();
-        return redirect()->route('roles.index');
+      if (Auth::guard('admin')->user()->can('edit_role')) {  
+         $role = Role::findOrFail($id);
+         $role->delete();
+         return redirect()->route('roles.index');
+      } else {
+         Session::flash('error', 'You are not Authorised');
+         $AllRole = DB::table('roles')->get();
+         return view('admin/permission.role')->withAllrole($AllRole); 
+      }  
     }
 
 
 /*===============For Assign Permission===================*/
     public function assignindex(){
-        $AllRole=Role::get();
-        return view('admin/permission.assign')->withAllrole($AllRole);
+        if (Auth::guard('admin')->user()->can('assign_permission')) {
+            $AllRole=Role::get();
+            return view('admin/permission.assign')->withAllrole($AllRole);
+        }
+        else {
+            Session::flash('error', 'You are not Authorised');
+            return redirect()->route('adminhome');
+            
+        }    
     }
 
     public function fetchassigndata($id){
@@ -144,8 +172,8 @@ class RoleController extends Controller
     }
 
     public function permissionupdate(Request $request, $id){
-        $role = Role::find($id);
-        // sync id's tags and posts
+       $role = Role::find($id);
+       // sync id's tags and posts
        if(isset($request->permissions)){
             $role->permissions()->sync($request->permissions);
        } else {
@@ -161,8 +189,14 @@ class RoleController extends Controller
 
 
    public function assignroleindex(){
-        $AllUser=User::get();
-        return view('admin/permission.assignrole')->withAlluser($AllUser);
+        if (Auth::guard('admin')->user()->can('assign_role')) {
+            $AllUser=User::get();
+            return view('admin/permission.assignrole')->withAlluser($AllUser);
+        }
+        else {
+            Session::flash('error', 'You are not Authorised');
+            return redirect()->route('adminhome');
+        }
     }
 
     public function fetchassignrole($id){

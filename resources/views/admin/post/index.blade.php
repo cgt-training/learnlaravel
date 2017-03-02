@@ -2,24 +2,26 @@
 @extends('admin.layout')
 
 @section('content')
+      <section id="main-content">
+          <section class="wrapper">            
+              <!--overview start-->
+			  <div class="row">
+				<div class="col-lg-12">
+					<h3 class="page-header"><i class="fa fa-laptop"></i> All Posts</h3>
+					<ol class="breadcrumb">
+						<li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+						<li><i class="fa fa-laptop"></i>All Posts</li>						  	
+					</ol>
+				</div>
+			</div>
 
 	@include('partials._massage')
 	<div class="row">
-        <div class="col-md-10 col-md-offset-2">
-        <br><br><br>
-        	<h2>All Posts</h2>
-  			<p>You Can See Here Your All Posts</p>
-
-  			<?php if(!isset($page)) { $page = ''; } ?>
-
-  			<!-- {{ Form::model($page, array('method' => 'put', 'url' => "pagination", 'name' => "frm_select_page")) }}
-
-  			{{ Form::select('totalrecords', ['5' => '5', '10' => '10', '20' => '20', '50' => '50', '100' => '100'], null, array('class' => 'form-control my-select', 'name' => 'totalrecords', "onchange" => "document.frm_select_page.submit();")) }}
-
-			{!! Form::close() !!} -->
-			@if (Auth::guard('admin')->user()->can('create_post'))
+        <div class="col-md-10 col-md-offset-1">
+        
+  			<?php /* @if (Auth::guard('admin')->user()->can('create_post')) */ ?>
   			 <a style="float: right; margin-bottom: 2%;" href="{{ route('postadmin.create') }}" class="btn btn-primary btn-lg">Create New Post</a>
-  			@endif
+  			<?php /* @endif */ ?>
 
         <table class="table table-bordered">
         	<thead class="thead-inverse">
@@ -45,9 +47,9 @@
 							<a href="{{ route('postadmin.show', $post->id) }}" class="btn btn-default btn-sm">View</a> 
 							
 
-							@if (Auth::guard('admin')->user()->can('edit_post'))
+							
 							<a href="{{ route('postadmin.edit', $post->id) }}" class="btn btn-default btn-sm">Edit</a>
-							@endif
+							
 										
 							</td>
 						</tr>
@@ -63,7 +65,8 @@
 			
         </div>
     </div>
-
+</section>
+</section>
 @endsection
 
 <style type="text/css">

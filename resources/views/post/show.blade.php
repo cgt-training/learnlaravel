@@ -52,14 +52,14 @@
         
             
         <div class="col-md-6">
-        @can('edit_topic')
+        @can('edit_post')
            	 {!! Html::linkRoute('posts.edit', 'Edit Post', array($data[0]->id), array('class' => 'btn btn-primary btn-block')) !!}
         @endcan     
         </div>
            
 
         <div class="col-md-6">
-        @can('delete_topic')
+        @can('delete_post')
         {{ Form::open(['method' => 'DELETE', 'route' => ['posts.destroy', $data[0]->id]]) }}
    			 {{ Form::submit('Delete Post', ['class' => 'btn btn-danger btn-block']) }}
 		{{ Form::close() }}

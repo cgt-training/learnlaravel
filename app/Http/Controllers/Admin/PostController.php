@@ -13,6 +13,7 @@ use App\Tag;
 use Session;
 use Image;
 use Storage;
+use Auth;
 
 class PostController extends Controller
 {
@@ -34,9 +35,16 @@ class PostController extends Controller
      */
     public function create()
     {
+      if (Auth::guard('admin')->user()->can('create_post')) {
         $allCategories = DB::table('categories')->get();
         $allTags = DB::table('tags')->get();
         return view('admin/post.create', ['allCategories' => $allCategories, 'tags' => $allTags]);
+       }
+       else {
+        Session::flash('error', 'You are not Authorised');
+        $AllPosts = Post::orderBy('id', 'asc')->paginate(5);
+        return view('admin/post.index', ['AllPosts' => $AllPosts]);
+       } 
     }
 
     /**
@@ -99,6 +107,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+      if (Auth::guard('admin')->user()->can('edit_post')) {
+
         $post = Post::find($id);
         $allcat = [];
         $allCategories = DB::table('categories')->get();
@@ -112,8 +122,13 @@ class PostController extends Controller
                $alltag[$allTagss->id] = $allTagss->name;
             }    
         return view('admin/post.edit')->withPost($post)->withAllcat($allcat)->withTags($alltag);
+      }
+      else {
+        Session::flash('error', 'You are not Authorised');
+        $AllPosts = Post::orderBy('id', 'asc')->paginate(5);
+        return view('admin/post.index', ['AllPosts' => $AllPosts]);
+      }
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -185,11 +200,18 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::findOrFail($id);
-        $oldimage = $post->image;
-       Storage::delete($oldimage);
-         DB::table('post_tag')->where('post_id', $id)->delete();
-        $post->delete();
-       return redirect()->route('postadmin.index');
-    }
+      if (Auth::guard('admin')->user()->can('delete_post')) {
+          $post = Post::findOrFail($id);
+          $oldimage = $post->image;
+         Storage::delete($oldimage);
+           DB::table('post_tag')->where('post_id', $id)->delete();
+          $post->delete();
+         return redirect()->route('postadmin.index');
+       }
+       else {
+        Session::flash('error', 'You are not Authorised');
+        $AllPosts = Post::orderBy('id', 'asc')->paginate(5);
+        return view('admin/post.index', ['AllPosts' => $AllPosts]);
+       }
+     }
 }

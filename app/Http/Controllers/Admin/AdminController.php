@@ -15,7 +15,12 @@ class AdminController extends Controller
 
 	public function dashboard()
 	{
-		return view('admin.layout');
+		// return view('admin.layout');
+		$users = DB::table('users')->count();
+		$posts = DB::table('posts')->count();
+		$permissions = DB::table('permissions')->count();
+		$roles = DB::table('roles')->count();
+		return view('admin.index')->withUsers($users)->withPosts($posts)->withPermissions($permissions)->withRoles($roles);
 	}
 }
 
